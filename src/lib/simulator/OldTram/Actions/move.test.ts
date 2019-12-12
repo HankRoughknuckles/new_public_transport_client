@@ -1,6 +1,8 @@
-import {LINE_1_1} from '../../../../fixtures/lines';
-import {load, move} from './index';
+import {LINE_1_1, LINE_1_2} from '../../../../fixtures/lines';
+import {load, move, turnAround} from './';
 import OldTram from '../OldTram';
+import TramLine from '../../TramLine';
+import factories from '../../../../factories';
 
 describe('The move action', () => {
   describe('switching actions', () => {
@@ -30,12 +32,30 @@ describe('The move action', () => {
     const tram = new OldTram({
       currentAction: move,
       timeTillActionIsFinished: 0,
-      tramLine: LINE_1_1,
+      tramLine: new TramLine(LINE_1_1),
       location: LINE_1_1.segments[0],
     });
     move.perform(tram);
 
-    // TODO: make location either be a station or a segment
     expect(tram.location.stationName).toEqual(LINE_1_1.segments[0].nameOfNeighbor);
+  });
+
+  describe('when the tram is at the end of the line', () => {
+    it('should set the line to opposite direction counterpart', () => {
+      const line = new TramLine(LINE_1_1)
+      const oppositeLine = new TramLine(LINE_1_2)
+      const tram = factories.line1Tram({currentAction: move, location: line.getFinalSegment()});
+      move.perform(tram);
+
+      expect(tram.location.nameOfNeighbor).toEqual(oppositeLine.segments[0].nameOfNeighbor)
+    });
+
+    it('should set the action as "turning around"', () => {
+      const line = new TramLine(LINE_1_1)
+      const tram = factories.line1Tram({currentAction: move, location: line.getFinalSegment()});
+      move.perform(tram);
+
+      expect(tram.currentAction.type).toEqual(turnAround.type);
+    });
   });
 });

@@ -1,7 +1,7 @@
 import {v1 as uuid} from 'uuid';
 import Passenger from './Passenger';
-import TramAction from './TramAction';
-import {TramLine, Segment} from '../../fixtures/lines';
+import TramLine from './TramLine'
+import Segment from './Segment';
 
 export type TramType = 'OLD_TRAM' | 'NEW_TRAM';
 
@@ -10,7 +10,7 @@ export default abstract class Tram {
   abstract type: TramType;
   abstract capacity: number;
   abstract tramLine: TramLine;
-  abstract currentAction: TramAction;
+  abstract destination: Segment;
   abstract location: Segment;
   abstract timeTillActionIsFinished: number;
   abstract passengers: [];
@@ -24,4 +24,7 @@ export default abstract class Tram {
    * station, etc.
    */
   abstract next(): void;
+
+  /** Sets the tram's current location to the next segment it should go to */
+  abstract goToNextSegment(): void;
 }

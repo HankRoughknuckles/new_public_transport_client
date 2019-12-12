@@ -1,15 +1,13 @@
-import TramAction from '../../TramAction';
-import Tram from '../../Tram';
-import {load} from './index';
+import OldTram from '../OldTram';
 
-export const move: TramAction = {
+// TODO: having actions separate from the OldTram class  like this may be
+// unnecessary, potentially remove them if needed
+export const move = {
   type: 'move',
-  duration: 120,
-  perform: (tram: Tram) => {
+  duration: 120, // TODO: not needed here, try to remove it
+  perform: (tram: OldTram) => {
     if (tram.timeTillActionIsFinished === 0) {
-      tram.currentAction = load;
-      tram.timeTillActionIsFinished = load.duration;
-      return tram.next();
+      return tram.goToNextSegment();
     };
 
     tram.timeTillActionIsFinished = tram.timeTillActionIsFinished - 1;

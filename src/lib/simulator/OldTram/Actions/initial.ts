@@ -1,9 +1,10 @@
-import Tram from '../../Tram';
+import {OldTramAction} from './';
+import OldTram from '../OldTram';
 
-export const initial = {
+export const initial: OldTramAction = {
   type: 'initial',
   duration: 0,
-  perform: (state: Tram) => {}
+  perform: (state: OldTram) => {}
 }
 
 export default initial

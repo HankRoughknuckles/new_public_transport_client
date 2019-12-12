@@ -1,6 +1,4 @@
-import {TramLine} from './index';
-
-export const LINE_1_1: TramLine = {
+export const LINE_1_1 = {
   id: 1,
   name: 'Line 1 - direction 1',
   segments: [

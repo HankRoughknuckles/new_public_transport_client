@@ -1,4 +1,5 @@
-import OldTram  from './OldTram';
+import { line1Tram } from '../../../factories/oldTram';
+import { turnAround } from './Actions';
 
 describe('OldTram', () => {
   describe('next()', () => {
@@ -8,7 +9,7 @@ describe('OldTram', () => {
         duration: 10,
         perform: jest.fn(),
       };
-      const tram = new OldTram({currentAction: mockAction, timeTillActionIsFinished: 0});
+      const tram = line1Tram({currentAction: mockAction, timeTillActionIsFinished: 0});
       tram.next();
 
       expect(mockAction.perform).toHaveBeenCalled();
