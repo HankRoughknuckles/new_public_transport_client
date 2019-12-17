@@ -1,7 +1,7 @@
 export default interface Segment {
-  id?: number;
-  stationName: string;
-  nameOfNeighbor: string;
+  id: number;
+  stationName: number;
+  nameOfNeighbor: number;
   secondsToNeighbor: number;
 }
 
