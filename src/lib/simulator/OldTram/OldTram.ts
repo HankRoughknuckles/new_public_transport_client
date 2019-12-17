@@ -1,5 +1,6 @@
 import {LINE_1_1, LINE_1_2} from '../../../fixtures/lines'
 import { OldTramAction, initial, load, turnAround } from './Actions';
+import { getStation } from '../StationRegistry';
 import Segment from '../Segment';
 import Tram from '../Tram';
 import TramLine from '../TramLine'
@@ -14,26 +15,26 @@ export default class OldTram extends Tram {
   tramLine: TramLine;
   oppositeDirectionTramLine: TramLine;
   currentAction: OldTramAction;
-  location: Segment;
+  currentSegment: Segment;
   destination: Segment;
   timeTillActionIsFinished: number;
   passengers: [];
 
-  constructor({tramLine, oppositeDirectionTramLine, capacity, currentAction, location, timeTillActionIsFinished, passengers}: Partial<OldTram>) {
+  constructor({tramLine, oppositeDirectionTramLine, capacity, currentAction, currentSegment, timeTillActionIsFinished, passengers}: Partial<OldTram>) {
     super();
     this.type = 'OLD_TRAM';
     this.tramLine = tramLine || new TramLine(LINE_1_1);
     this.oppositeDirectionTramLine = oppositeDirectionTramLine || new TramLine(LINE_1_2);
     this.capacity = capacity || OLD_TRAM_CAPACITY;
     this.currentAction = currentAction || initial;
-    this.location = location || this.tramLine.segments[0];
+    this.currentSegment = currentSegment || this.tramLine.segments[0];
     this.timeTillActionIsFinished = timeTillActionIsFinished || 0;
     this.passengers = passengers || [];
     this.destination = this.tramLine.getFinalSegment();
   }
 
   changeTrackDirection() {
-    this.location = this.oppositeDirectionTramLine.segments[0]
+    this.currentSegment = this.oppositeDirectionTramLine.segments[0]
 
     const tempLine = this.tramLine;
     this.tramLine = this.oppositeDirectionTramLine;
@@ -43,11 +44,13 @@ export default class OldTram extends Tram {
   }
 
   goToNextSegment() {
-    const nextSegment = this.tramLine.getNextSegment(this.location);
+    const nextSegment = this.tramLine.getNextSegment(this.currentSegment);
     if (nextSegment) {
-      this.location = nextSegment!;
+      this.currentSegment = nextSegment!;
+      const station = getStation(this.currentSegment.stationName);
+      station.acceptIncomingTram(this);
       this.currentAction = load;
-      this.timeTillActionIsFinished = this.location.secondsToNeighbor;
+      this.timeTillActionIsFinished = this.currentSegment.secondsToNeighbor;
     } else {
       this.changeTrackDirection();
     }

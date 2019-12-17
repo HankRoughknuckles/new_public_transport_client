@@ -11,7 +11,7 @@ export default class TramLine implements ITramLine {
   name: string;
   segments: Segment[];
 
-  constructor(tramLine: {id: number, name: string, segments: Segment[]}) {
+  constructor(tramLine: ITramLine) {
     this.id = tramLine.id;
     this.name = tramLine.name || '';
     this.segments = tramLine.segments || [];

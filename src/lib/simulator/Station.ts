@@ -2,7 +2,7 @@ import OldTram from './OldTram/OldTram';
 import Segment from './Segment';
 
 export interface IStation {
-  id?: number;
+  id: number;
   name: string;
   simpleName?: string;
   outgoingSegments?: Segment[];
@@ -10,7 +10,7 @@ export interface IStation {
 }
 
 export default class Station implements IStation {
-  id?: number;
+  id: number;
   name: string;
   simpleName: string;
   outgoingSegments: Segment[];

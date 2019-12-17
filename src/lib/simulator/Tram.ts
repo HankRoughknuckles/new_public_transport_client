@@ -11,7 +11,7 @@ export default abstract class Tram {
   abstract capacity: number;
   abstract tramLine: TramLine;
   abstract destination: Segment;
-  abstract location: Segment;
+  abstract currentSegment: Segment;
   abstract timeTillActionIsFinished: number;
   abstract passengers: [];
 
@@ -25,6 +25,6 @@ export default abstract class Tram {
    */
   abstract next(): void;
 
-  /** Sets the tram's current location to the next segment it should go to */
+  /** Sets the tram's currentSegment to the next segment it should go to */
   abstract goToNextSegment(): void;
 }

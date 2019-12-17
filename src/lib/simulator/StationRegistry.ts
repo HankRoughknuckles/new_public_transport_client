@@ -2,14 +2,14 @@ import Station from './Station';
 import {keyBy} from 'lodash';
 
 export class StationRegistry {
-  public stations: {[simpleName: string]: Station};
+  public stations: {[id: number]: Station};
 
   constructor(stations: Station[] = []) {
-    this.stations = keyBy(stations, 'simpleName');
+    this.stations = keyBy(stations, 'id');
   }
 
   public addStation(station: Station) {
-    this.stations[station.simpleName] = station;
+    this.stations[station.id!] = station;
   }
 }
 
@@ -20,4 +20,8 @@ export function getRegistry() {
 
 export function initializeRegistry(stations: Station[] = []) {
   registry = new StationRegistry(stations);
+}
+
+export function getStation(id: number) {
+  return registry.stations[id];
 }

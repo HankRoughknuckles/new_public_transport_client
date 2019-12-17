@@ -6,7 +6,7 @@ export const line1Tram = (props: Partial<OldTram> = {}) => {
   return new OldTram({
     tramLine: new TramLine(LINE_1_1),
     oppositeDirectionTramLine: new TramLine(LINE_1_2),
-    location: LINE_1_1.segments[0],
+    currentSegment: (LINE_1_1.segments[0]),
     ...props,
   });
 }
