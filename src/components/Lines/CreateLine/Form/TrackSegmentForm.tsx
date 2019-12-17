@@ -1,23 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import {TrackSegment} from '../../../../api';
+
 import {useCreateLineFormReducer} from '../../../../hooks/dispatchers';
+import Segment from '../../../../lib/simulator/Segment';
 
 interface Props {
-  trackSegment: TrackSegment;
+  trackSegment: Segment;
   index: number;
 }
 
 export default function CreateLine({trackSegment, index}: Props) {
   const [, {setTrackSegment}] = useCreateLineFormReducer();
-  const [startName, setStartName] = useState('');
-  const [endName, setEndName] = useState('');
+  const [startName, setStartName] = useState(-1);
+  const [endName, setEndName] = useState(-1);
   const [travelTimeInSeconds, setTravelTimeInSeconds] = useState(-1);
 
   useEffect(() => {
     setTrackSegment(index, {
-      start: {name: startName},
-      end: {name: endName},
-      travelTimeInSeconds,
+      id: -1,
+      stationName: startName,
+      nameOfNeighbor: endName,
+      secondsToNeighbor: travelTimeInSeconds,
     })
   }, [index, startName, endName, travelTimeInSeconds, setTrackSegment])
 
@@ -25,11 +27,11 @@ export default function CreateLine({trackSegment, index}: Props) {
     <div>
       <label>
         Stop {index}:
-        <input type="text" name="start" placeholder="Station Name..." onChange={(e) => setStartName(e.currentTarget.value)} />
+        <input type="text" name="start" placeholder="Station Name..." onChange={(e) => setStartName(parseInt(e.currentTarget.value))} />
       </label>
       <label>
         Stop {index + 1}:
-        <input type="text" name="end" placeholder="Station Name..." onChange={(e) => setEndName(e.currentTarget.value)} />
+        <input type="text" name="end" placeholder="Station Name..." onChange={(e) => setEndName(parseInt(e.currentTarget.value))} />
       </label>
       <label>
         How long does it take (in minutes)?

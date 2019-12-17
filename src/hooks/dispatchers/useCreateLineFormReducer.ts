@@ -1,13 +1,14 @@
 import {useMemo} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {RootState} from '../../reducers/rootReducer';
-import {TrackSegment} from '../../api';
+
 import {CreateLineFormState} from '../../reducers/createLineFormReducer';
+import {RootState} from '../../reducers/rootReducer';
+import Segment from '../../lib/simulator/Segment';
 
 interface Dispatcher {
   setLineName: (lineName: string) => void;
   addBlankTrackSegment: () => void;
-  setTrackSegment: (index: number, trackSegment: TrackSegment) => void;
+  setTrackSegment: (index: number, trackSegment: Segment) => void;
 }
 
 export default function useCreateLineFormDispatcher(): [CreateLineFormState, Dispatcher] {
@@ -21,7 +22,7 @@ export default function useCreateLineFormDispatcher(): [CreateLineFormState, Dis
     addBlankTrackSegment() {
       dispatch({type: 'ADD_BLANK_TRACK_SEGMENT'})
     },
-    setTrackSegment(index: number, trackSegment: TrackSegment) {
+    setTrackSegment(index: number, trackSegment: Segment) {
       dispatch({type: 'SET_TRACK_SEGMENT', index, trackSegment})
     }
   }), [dispatch])
