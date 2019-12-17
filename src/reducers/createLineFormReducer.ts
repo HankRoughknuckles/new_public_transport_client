@@ -1,9 +1,9 @@
-import {TrackSegment} from '../api';
+import Segment from '../lib/simulator/Segment';
 import factories from '../factories';
 
 export interface CreateLineFormState {
   lineName: string;
-  trackSegments: TrackSegment[];
+  trackSegments: Segment[];
 }
 
 export const initialState: CreateLineFormState = {
@@ -24,7 +24,7 @@ interface AddBlankTrackSegmentAction {
 interface SetTrackSegmentAction {
   type: 'SET_TRACK_SEGMENT';
   index: number;
-  trackSegment: TrackSegment
+  trackSegment: Segment
 }
 
 export type CreateLineFormAction = SetLineNameAction | AddBlankTrackSegmentAction | SetTrackSegmentAction
