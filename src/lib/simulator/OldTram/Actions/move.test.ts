@@ -3,7 +3,6 @@ import {allStations} from '../../../../fixtures/lines/line1';
 import {getStation, initializeRegistry} from '../../StationRegistry';
 import {load, move, turnAround} from './';
 import OldTram from '../OldTram';
-import TramLine from '../../TramLine';
 import factories from '../../../../factories';
 
 describe('The move action', () => {
@@ -39,13 +38,13 @@ describe('The move action', () => {
     });
     move.perform(tram);
 
-    expect(tram.currentSegment.stationName).toEqual(LINE_1_1.segments[0].nameOfNeighbor);
+    expect(tram.currentSegment.stationId).toEqual(LINE_1_1.segments[0].neighborStationId);
   });
 
   fit('should move two trams into a station in the order they arrive', () => {
     const tram1 = factories.line1Tram({currentAction: move, timeTillActionIsFinished: 0});
     const tram2 = factories.line1Tram({currentAction: move, timeTillActionIsFinished: 1});
-    const nextStation = getStation(tram1.currentSegment.nameOfNeighbor);
+    const nextStation = getStation(tram1.currentSegment.neighborStationId);
     move.perform(tram1); // move tram 1 in
     move.perform(tram2);
     expect(nextStation.trams).toEqual([tram1]);
@@ -55,16 +54,16 @@ describe('The move action', () => {
 
   describe('when the tram is at the end of the line', () => {
     it('should set the line to opposite direction counterpart', () => {
-      const line = new TramLine(LINE_1_1)
-      const oppositeLine = new TramLine(LINE_1_2)
+      const line = LINE_1_1
+      const oppositeLine = LINE_1_2
       const tram = factories.line1Tram({currentAction: move, currentSegment: line.getFinalSegment()});
       move.perform(tram);
 
-      expect(tram.currentSegment.nameOfNeighbor).toEqual(oppositeLine.segments[0].nameOfNeighbor)
+      expect(tram.currentSegment.neighborStationId).toEqual(oppositeLine.segments[0].neighborStationId)
     });
 
     it('should set the action as "turning around"', () => {
-      const line = new TramLine(LINE_1_1)
+      const line = LINE_1_1
       const tram = factories.line1Tram({currentAction: move, currentSegment: line.getFinalSegment()});
       move.perform(tram);
 

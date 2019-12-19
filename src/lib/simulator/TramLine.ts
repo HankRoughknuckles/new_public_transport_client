@@ -18,7 +18,7 @@ export default class TramLine implements ITramLine {
   }
 
   public getNextSegment(segment: Segment): Segment | undefined {
-    return this.segments.find(s => s.stationName === segment.nameOfNeighbor)
+    return this.segments.find(s => s.stationId === segment.neighborStationId)
   }
 
   public getFinalSegment() {

@@ -4,8 +4,8 @@ import Segment from '../lib/simulator/Segment';
 
 const defaultProps: Segment = {
   id: 1,
-  stationName: 1,
-  nameOfNeighbor: 2,
+  stationId: 1,
+  neighborStationId: 2,
   secondsToNeighbor: 120,
 }
 
@@ -16,8 +16,8 @@ export function segment(props: Partial<Segment> = {}): Segment {
 export function blankTrackSegment(): Segment {
   return {
     id: -1,
-    stationName: -1,
-    nameOfNeighbor: -1,
+    stationId: -1,
+    neighborStationId: -1,
     secondsToNeighbor: -1,
   }
 }

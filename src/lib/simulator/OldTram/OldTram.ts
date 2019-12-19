@@ -9,7 +9,19 @@ import TramLine from '../TramLine'
 export const OLD_TRAM_CAPACITY = 100;
 export const OLD_TRAM_TURN_AROUND_TIME = 600;
 
-export default class OldTram extends Tram {
+export interface ApiOldTram {
+  type: 'OLD_TRAM';
+  capacity: number;
+  tramLine: TramLine;
+  oppositeDirectionTramLine: TramLine;
+  currentAction: OldTramAction;
+  currentSegment: Segment;
+  destination: Segment;
+  timeTillActionIsFinished: number;
+  passengers: [];
+}
+
+export default class OldTram extends Tram implements ApiOldTram {
   type: 'OLD_TRAM';
   capacity: number;
   tramLine: TramLine;
@@ -23,8 +35,8 @@ export default class OldTram extends Tram {
   constructor({tramLine, oppositeDirectionTramLine, capacity, currentAction, currentSegment, timeTillActionIsFinished, passengers}: Partial<OldTram>) {
     super();
     this.type = 'OLD_TRAM';
-    this.tramLine = tramLine || new TramLine(LINE_1_1);
-    this.oppositeDirectionTramLine = oppositeDirectionTramLine || new TramLine(LINE_1_2);
+    this.tramLine = tramLine || LINE_1_1;
+    this.oppositeDirectionTramLine = oppositeDirectionTramLine || LINE_1_2;
     this.capacity = capacity || OLD_TRAM_CAPACITY;
     this.currentAction = currentAction || initial;
     this.currentSegment = currentSegment || this.tramLine.segments[0];
@@ -47,7 +59,7 @@ export default class OldTram extends Tram {
     const nextSegment = this.tramLine.getNextSegment(this.currentSegment);
     if (nextSegment) {
       this.currentSegment = nextSegment!;
-      const station = getStation(this.currentSegment.stationName);
+      const station = getStation(this.currentSegment.stationId);
       station.acceptIncomingTram(this);
       this.currentAction = load;
       this.timeTillActionIsFinished = this.currentSegment.secondsToNeighbor;

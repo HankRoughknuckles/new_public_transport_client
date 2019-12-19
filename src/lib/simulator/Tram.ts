@@ -1,5 +1,4 @@
 import {v1 as uuid} from 'uuid';
-import Passenger from './Passenger';
 import TramLine from './TramLine'
 import Segment from './Segment';
 
