@@ -12,12 +12,6 @@ export class StationRegistry {
     this.stations[station.id!] = station;
   }
 
-  public emptyAllStations() {
-    for (let stationId in this.stations) {
-      this.stations[stationId].removeAllTrams();
-    }
-  }
-
   public getStation(id: number) {
     return getRegistry().stations[id];
   };

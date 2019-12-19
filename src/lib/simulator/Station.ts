@@ -27,8 +27,4 @@ export default class Station implements IStation {
   public acceptIncomingTram(tram: OldTram) {
     this.trams = [...this.trams, tram];
   };
-
-  public removeAllTrams() {
-    this.trams = [];
-  };
 }
