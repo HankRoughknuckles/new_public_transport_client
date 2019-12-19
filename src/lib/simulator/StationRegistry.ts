@@ -17,6 +17,10 @@ export class StationRegistry {
       this.stations[stationId].removeAllTrams();
     }
   }
+
+  public getStation(id: number) {
+    return getRegistry().stations[id];
+  };
 }
 
 let registry: StationRegistry = new StationRegistry();
@@ -26,9 +30,4 @@ export function getRegistry() {
 
 export function initializeRegistry(stations: Station[] = []) {
   registry = new StationRegistry(stations);
-}
-
-// TODO: move this into the registry
-export function getStation(id: number) {
-  return getRegistry().stations[id];
 }

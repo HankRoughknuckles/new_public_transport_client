@@ -1,195 +1,194 @@
 import Station from '../../lib/simulator/Station';
 import TramLine from '../../lib/simulator/TramLine';
 
-export const allStations = [
-  new Station({
+export const apiAllStations = [
+  {
     id: 1,
     name: 'Sídliště Petřiny',
     simpleName: 'Sídliště Petřiny',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 2,
     name: 'Petřiny',
     simpleName: 'Petřiny',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 3,
     name: 'Větrník',
     simpleName: 'Větrník',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 4,
     name: 'Vojenská nemocnice',
     simpleName: 'Vojenská nemocnice',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 5,
     name: 'Baterie',
     simpleName: 'Baterie',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 6,
     name: 'Ořechovka',
     simpleName: 'Ořechovka',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 7,
     name: 'Sibeliova',
     simpleName: 'Sibeliova',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 8,
     name: 'Vozovna Střešovice (Muzeum MHD)',
     simpleName: 'Vozovna Střešovice (Muzeum MHD)',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 9,
     name: 'Prašný most',
     simpleName: 'Prašný most',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 10,
     name: 'Hradčanská',
     simpleName: 'Hradčanská',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 11,
     name: 'Sparta',
     simpleName: 'Sparta',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 12,
     name: 'Letenské náměstí',
     simpleName: 'Letenské náměstí',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 13,
     name: 'Kamenická',
     simpleName: 'Kamenická',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 14,
     name: 'Strossmayerovo náměstí',
     simpleName: 'Strossmayerovo náměstí',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 15,
     name: 'Vltavská',
     simpleName: 'Vltavská',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 16,
     name: 'Pražská tržnice',
     simpleName: 'Pražská tržnice',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 17,
     name: 'Dělnická',
     simpleName: 'Dělnická',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 18,
     name: 'Maniny',
     simpleName: 'Maniny',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 19,
     name: 'Libeňský most',
     simpleName: 'Libeňský most',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 20,
     name: 'Palmovka (ul. Zenklova)',
     simpleName: 'Palmovka (ul. Zenklova)',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 21,
     name: 'Krejcárek',
     simpleName: 'Krejcárek',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 22,
     name: 'Ohrada',
     simpleName: 'Ohrada',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 23,
     name: 'Vozovna Žižkov',
     simpleName: 'Vozovna Žižkov',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 24,
     name: 'Strážní',
     simpleName: 'Strážní',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 25,
     name: 'Chmelnice',
     simpleName: 'Chmelnice',
     outgoingSegments: [],
     trams: [],
-  }),
-  new Station({
+  },
+  {
     id: 26,
     name: 'Kněžská luka',
     simpleName: 'Kněžská luka',
     outgoingSegments: [],
     trams: [],
-  }),
+  },
 ]
 
-export const LINE_1_1 = new TramLine({
+export const LINE_1_1 = {
   id: 1,
   name: 'Line 1 - direction 1',
-  // TODO: renmae staitonName to station;
   segments: [
     {
       id: 1,
@@ -348,9 +347,9 @@ export const LINE_1_1 = new TramLine({
       secondsToNeighbor: -1,
     },
   ],
-});
+};
 
-export const LINE_1_2 = new TramLine({
+export const LINE_1_2 = {
   id: 1,
   name: 'Line 1 - direction 1',
   segments: [
@@ -511,4 +510,4 @@ export const LINE_1_2 = new TramLine({
       secondsToNeighbor: -1,
     },
   ],
-});
+};
