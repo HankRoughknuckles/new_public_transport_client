@@ -1,12 +1,15 @@
 import {LINE_1_1, LINE_1_2} from '../../../../fixtures/lines';
 import {allStations} from '../../../../fixtures/lines/line1';
-import {getStation, initializeRegistry} from '../../StationRegistry';
+import {getStation, initializeRegistry, getRegistry} from '../../StationRegistry';
 import {load, move, turnAround} from './';
 import OldTram from '../OldTram';
 import factories from '../../../../factories';
 
 describe('The move action', () => {
-  beforeEach(() => initializeRegistry(allStations));
+  beforeEach(() => {
+    initializeRegistry(allStations);
+    getRegistry().emptyAllStations();
+  });
 
   describe('switching actions', () => {
     it('should not occur if current task is not finished (moving is still in progress)', () => {
@@ -41,7 +44,7 @@ describe('The move action', () => {
     expect(tram.currentSegment.stationId).toEqual(LINE_1_1.segments[0].neighborStationId);
   });
 
-  fit('should move two trams into a station in the order they arrive', () => {
+  it('should move two trams into a station in the order they arrive', () => {
     const tram1 = factories.line1Tram({currentAction: move, timeTillActionIsFinished: 0});
     const tram2 = factories.line1Tram({currentAction: move, timeTillActionIsFinished: 1});
     const nextStation = getStation(tram1.currentSegment.neighborStationId);

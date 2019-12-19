@@ -16,15 +16,19 @@ export default class Station implements IStation {
   outgoingSegments: Segment[];
   trams: OldTram[];
 
-   constructor({id, name, outgoingSegments, simpleName, trams}: IStation) {
-     this.id = id;
-     this.name = name;
-     this.simpleName = simpleName || name;
-     this.outgoingSegments = outgoingSegments || [];
-     this.trams = trams || [];
-   }
+  constructor({id, name, outgoingSegments, simpleName, trams}: IStation) {
+    this.id = id;
+    this.name = name;
+    this.simpleName = simpleName || name;
+    this.outgoingSegments = outgoingSegments || [];
+    this.trams = trams || [];
+  }
 
-  acceptIncomingTram(tram: OldTram) {
+  public acceptIncomingTram(tram: OldTram) {
     this.trams = [...this.trams, tram];
+  };
+
+  public removeAllTrams() {
+    this.trams = [];
   };
 }
