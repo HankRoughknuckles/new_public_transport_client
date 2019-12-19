@@ -2,6 +2,7 @@ import {LINE_1_1, LINE_1_2} from '../../../fixtures/lines'
 import { OldTramAction, initial, load, turnAround } from './Actions';
 import {getRegistry} from '../StationRegistry';
 import Segment from '../Segment';
+import Station from '../Station';
 import Tram from '../Tram';
 import TramLine from '../TramLine'
 
@@ -60,14 +61,18 @@ export default class OldTram extends Tram implements ApiOldTram {
     return getRegistry().getStation(this.currentSegment.stationId);
   }
 
+  pullIntoNextStation() {
+    const nextSegment = this.tramLine.getNextSegment(this.currentSegment);
+    this.currentSegment = nextSegment!;
+    this.currentAction = load;
+    this.currentStation!.acceptIncomingTram(this);
+    this.timeTillActionIsFinished = load.duration;
+  }
+
   goToNextSegment() {
     const nextSegment = this.tramLine.getNextSegment(this.currentSegment);
     if (nextSegment) {
-      this.currentSegment = nextSegment!;
-      const station = getRegistry().getStation(this.currentSegment.stationId);
-      station.acceptIncomingTram(this);
-      this.currentAction = load;
-      this.timeTillActionIsFinished = this.currentSegment.secondsToNeighbor;
+      this.pullIntoNextStation();
     } else {
       this.changeTrackDirection();
     }
