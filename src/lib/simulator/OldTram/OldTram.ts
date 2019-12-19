@@ -55,6 +55,11 @@ export default class OldTram extends Tram implements ApiOldTram {
     this.currentAction = turnAround;
   }
 
+  get currentStation(): Station | undefined {
+    if (this.currentAction !== load) return undefined;
+    return getRegistry().getStation(this.currentSegment.stationId);
+  }
+
   goToNextSegment() {
     const nextSegment = this.tramLine.getNextSegment(this.currentSegment);
     if (nextSegment) {
