@@ -3,11 +3,11 @@ import {
   API_MANINY,
   apiAllStations
 } from '../fixtures/lines/line1';
-import Station, {IStation} from '../lib/simulator/Station';
+import Station, {ApiStation} from '../lib/simulator/Station';
 
 const deepMerge = require('deepmerge')
 
-const defaultProps: IStation = {
+const defaultProps: ApiStation = {
   id: 1,
   name: 'Sidliste Petriny',
   simpleName: 'Sidliste Petriny',
@@ -15,11 +15,11 @@ const defaultProps: IStation = {
   trams: [],
 }
 
-export function station(props: Partial<IStation> = defaultProps): Station {
+export function station(props: Partial<ApiStation> = defaultProps): Station {
   return new Station(deepMerge(defaultProps, props));
 }
 
-export function delnickaStation(props: Partial<IStation> = defaultProps): Station {
+export function delnickaStation(props: Partial<ApiStation> = defaultProps): Station {
   return station({
     ...props,
     id: API_DELNICKA.id,
@@ -28,7 +28,7 @@ export function delnickaStation(props: Partial<IStation> = defaultProps): Statio
   })
 }
 
-export function maninyStation(props: Partial<IStation> = defaultProps): Station {
+export function maninyStation(props: Partial<ApiStation> = defaultProps): Station {
   return station({
     ...props,
     id: API_MANINY.id,

@@ -2,8 +2,7 @@ import OldTram from './OldTram/OldTram';
 import Passenger from './Passenger';
 import Segment from './Segment';
 
-// TODO: rename to ApiStation
-export interface IStation {
+export interface ApiStation {
   id: number;
   name: string;
   simpleName?: string;
@@ -11,7 +10,7 @@ export interface IStation {
   trams?: OldTram[];
 }
 
-export default class Station implements IStation {
+export default class Station implements ApiStation {
   id: number;
   name: string;
   simpleName: string;
@@ -19,7 +18,7 @@ export default class Station implements IStation {
   trams: OldTram[];
   passengers: Passenger[];
 
-  constructor({id, name, outgoingSegments, simpleName, trams}: IStation) {
+  constructor({id, name, outgoingSegments, simpleName, trams}: ApiStation) {
     this.id = id;
     this.name = name;
     this.simpleName = simpleName || name;
