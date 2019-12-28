@@ -1,12 +1,13 @@
 import {LINE_1_1, LINE_1_2} from '../../../../fixtures/lines';
-import {initializeRegistry, getRegistry} from '../../StationRegistry';
+import { getRegistry } from '../../StationRegistry';
 import {load, move, turnAround} from './';
+import { setupStationRegistry } from '../../../../testUtils';
 import OldTram from '../OldTram';
 import TramLine from '../../TramLine';
 import factories from '../../../../factories';
 
 describe('The move action', () => {
-  beforeEach(() => initializeRegistry(factories.allStations()));
+  beforeEach(() => setupStationRegistry());;
 
   describe('switching actions', () => {
     it('should not occur if current task is not finished (moving is still in progress)', () => {

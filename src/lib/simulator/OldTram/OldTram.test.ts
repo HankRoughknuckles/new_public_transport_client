@@ -1,6 +1,7 @@
 import { initializeRegistry } from '../StationRegistry';
 import { line1Tram } from '../../../factories/oldTram';
 import { load, move } from './Actions';
+import { setupStationRegistry } from '../../../testUtils';
 import factories from '../../../factories';
 
 describe('OldTram', () => {
@@ -20,14 +21,14 @@ describe('OldTram', () => {
 
   describe('currentStation()', () => {
     it('should return the station in the currentSegment when loading', () => {
-      initializeRegistry(factories.allStations());
+      setupStationRegistry();
       const tram = factories.line1Tram({currentAction: load})
 
       expect(tram.currentStation!.id).toEqual(tram.currentSegment.stationId)
     });
 
     it('should return undefined otherwise', () => {
-      initializeRegistry(factories.allStations());
+      setupStationRegistry();
       const tram = factories.line1Tram({currentAction: move})
 
       expect(tram.currentStation).toEqual(undefined)

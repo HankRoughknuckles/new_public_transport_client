@@ -1,5 +1,18 @@
-import Station from '../../lib/simulator/Station';
-import TramLine from '../../lib/simulator/TramLine';
+export const API_DELNICKA = {
+  id: 17,
+  name: 'Dělnická',
+  simpleName: 'Dělnická',
+  outgoingSegments: [],
+  trams: [],
+};
+
+export const API_MANINY = {
+  id: 18,
+  name: 'Maniny',
+  simpleName: 'Maniny',
+  outgoingSegments: [],
+  trams: [],
+}
 
 export const apiAllStations = [
   {
@@ -114,20 +127,8 @@ export const apiAllStations = [
     outgoingSegments: [],
     trams: [],
   },
-  {
-    id: 17,
-    name: 'Dělnická',
-    simpleName: 'Dělnická',
-    outgoingSegments: [],
-    trams: [],
-  },
-  {
-    id: 18,
-    name: 'Maniny',
-    simpleName: 'Maniny',
-    outgoingSegments: [],
-    trams: [],
-  },
+  API_DELNICKA,
+  API_MANINY,
   {
     id: 19,
     name: 'Libeňský most',
@@ -339,12 +340,6 @@ export const LINE_1_1 = {
       stationId: 25,
       neighborStationId: 26,
       secondsToNeighbor: 120,
-    },
-    {
-      id: 26,
-      stationId: 26,
-      neighborStationId: -1,
-      secondsToNeighbor: -1,
     },
   ],
 };

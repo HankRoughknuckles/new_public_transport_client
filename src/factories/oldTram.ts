@@ -1,8 +1,22 @@
 import {LINE_1_1, LINE_1_2} from '../fixtures/lines'
+import { threeStationLine } from './tramLine';
 import OldTram, {ApiOldTram} from '../lib/simulator/OldTram/OldTram';
 import TramLine from '../lib/simulator/TramLine';
 
-export const line1Tram = (props: Partial<ApiOldTram> = {}) => {
+const defaultProps = {
+};
+
+export function oldTram(props: Partial<ApiOldTram> = {}) {
+  const line = threeStationLine()
+  return new OldTram({
+    ...defaultProps,
+    tramLine: line,
+    currentSegment: line.segments[0],
+    ...props,
+  });
+}
+
+export function line1Tram(props: Partial<ApiOldTram> = {}) {
   return new OldTram({
     tramLine: new TramLine(LINE_1_1),
     oppositeDirectionTramLine: new TramLine(LINE_1_2),
@@ -12,5 +26,6 @@ export const line1Tram = (props: Partial<ApiOldTram> = {}) => {
 }
 
 export default {
+  oldTram,
   line1Tram,
 };

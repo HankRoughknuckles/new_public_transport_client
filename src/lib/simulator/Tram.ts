@@ -1,6 +1,8 @@
 import {v1 as uuid} from 'uuid';
-import TramLine from './TramLine'
+
+import Passenger from './Passenger';
 import Segment from './Segment';
+import TramLine from './TramLine'
 
 export type TramType = 'OLD_TRAM' | 'NEW_TRAM';
 
@@ -12,7 +14,7 @@ export default abstract class Tram {
   abstract destination: Segment;
   abstract currentSegment: Segment;
   abstract timeTillActionIsFinished: number;
-  abstract passengers: [];
+  abstract passengers: Passenger[];
 
   constructor() {
     this.id = uuid();

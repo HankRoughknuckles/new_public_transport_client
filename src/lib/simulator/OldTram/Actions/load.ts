@@ -1,9 +1,20 @@
-import Tram from '../../Tram';
+import OldTram from '../OldTram';
+import Passenger from '../../Passenger';
 
-export const load = {
+export default {
   type: 'load',
   duration: 10,
-  perform: (state: Tram) => {}
+  perform: (tram: OldTram) => {
+    if (tram.isAbleToLoadPassengers) {
+      tram.timeTillActionIsFinished = tram.timeTillActionIsFinished - 1;
+      boardPassengers(tram);
+    }
+  }
 }
 
-export default load;
+function boardPassengers(tram: OldTram) {
+  if (!tram.isAbleToLoadPassengers) return;
+  const station = tram.currentStation;
+  const passengersToLoad = station!.getPassengersGoingInDirectionOf(tram);
+  tram.addPassengers(passengersToLoad);
+}

@@ -1,3 +1,6 @@
+// TODO: make this into a class
+// TODO: make convenience method segment.station, segment.neighbor which will
+//      treturn actual station objects
 export default interface Segment {
   /** database id of the segment */
   id: number;
@@ -7,4 +10,3 @@ export default interface Segment {
   neighborStationId: number;
   secondsToNeighbor: number;
 }
-

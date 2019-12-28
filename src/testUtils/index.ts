@@ -1,0 +1,1 @@
+export {setupStationRegistry} from './stationRegistry';
