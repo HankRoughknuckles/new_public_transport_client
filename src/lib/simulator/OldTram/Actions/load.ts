@@ -14,7 +14,8 @@ export default {
 
 function boardPassengers(tram: OldTram) {
   if (!tram.isAbleToLoadPassengers) return;
-  const station = tram.currentStation;
-  const passengersToLoad = station!.getPassengersGoingInDirectionOf(tram);
+  const station = tram.currentStation!;
+  const passengersToLoad = station.getPassengersGoingInDirectionOf(tram);
   tram.addPassengers(passengersToLoad);
+  station.removePassengersById(passengersToLoad.map(p => p.id));
 }

@@ -37,10 +37,13 @@ export default class Station implements IStation {
     this.passengers = [...this.passengers, passenger];
   };
 
-  // TODO: write tests around this
-  getPassengersGoingInDirectionOf(tram: OldTram) {
+  public removePassengersById(passengerIds: string[]) {
+    this.passengers = this.passengers.filter(p => !passengerIds.includes(p.id))
+  };
+
+  public getPassengersGoingInDirectionOf(tram: OldTram) {
     return tram.remainingStationsTillEnd
-      .map((station) => this.passengers.filter(passenger => passenger.destination.id === station.id))
+      .map((station) => this.passengers.filter(p => p.destination.id === station.id))
       .reduce((acc, passengers) => ([
         ...acc,
         ...passengers

@@ -498,11 +498,5 @@ export const LINE_1_2 = {
       neighborStationId: 1,
       secondsToNeighbor: 120,
     },
-    {
-      id: 52,
-      stationId: 1,
-      neighborStationId: -1,
-      secondsToNeighbor: -1,
-    },
   ],
 };

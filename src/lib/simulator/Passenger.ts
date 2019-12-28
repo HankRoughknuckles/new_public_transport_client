@@ -3,13 +3,13 @@ import {v1 as uuid} from 'uuid';
 import Station from './Station';
 
 export interface ApiPassenger {
-  id?: string;
+  id: string;
   currentLocation: Station;
   destination: Station;
 }
 
 export default class Passenger implements ApiPassenger {
-  id?: string;
+  id: string;
   currentLocation: Station;
   destination: Station;
 

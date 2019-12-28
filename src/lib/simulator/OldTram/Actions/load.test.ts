@@ -40,11 +40,18 @@ describe('the Load action', () => {
       expect(tram.timeTillActionIsFinished).toEqual(originalTime - 1);
     });
 
-    it('should load passengers that are going in that direction', () => {
+    it('should add passengers to the tram that are going in that direction', () => {
       const passenger = factories.passenger({destination: station2});
       tram.currentStation!.addPassenger(passenger);
       load.perform(tram);
       expect(tram.passengers).toEqual([passenger]);
+    });
+
+    fit('should remove the passengers loaded from the station', () => {
+      const passenger = factories.passenger({destination: station2});
+      tram.currentStation!.addPassenger(passenger);
+      load.perform(tram);
+      expect(tram.currentStation!.passengers).toEqual([]);
     });
 
     it('should unload the passengers that are getting off at that station', () => {
