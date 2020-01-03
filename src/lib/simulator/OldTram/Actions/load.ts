@@ -1,5 +1,4 @@
 import OldTram from '../OldTram';
-import Passenger from '../../Passenger';
 
 export default {
   type: 'load',
@@ -7,15 +6,23 @@ export default {
   perform: (tram: OldTram) => {
     if (tram.isAbleToLoadPassengers) {
       tram.timeTillActionIsFinished = tram.timeTillActionIsFinished - 1;
-      boardPassengers(tram);
+      loadPassengers(tram);
+      unloadPassengers(tram);
     }
   }
 }
 
-function boardPassengers(tram: OldTram) {
+function loadPassengers(tram: OldTram) {
   if (!tram.isAbleToLoadPassengers) return;
   const station = tram.currentStation!;
   const passengersToLoad = station.getPassengersGoingInDirectionOf(tram);
   tram.addPassengers(passengersToLoad);
   station.removePassengersById(passengersToLoad.map(p => p.id));
+}
+
+function unloadPassengers(tram: OldTram) {
+  if (!tram.isAbleToLoadPassengers) return;
+  const passengersToUnload = tram.getPassengersGettingOffAt(tram.currentStation!);
+  tram.removePassengersById(passengersToUnload.map(p => p.id));
+  tram.currentStation!.addPassengers(passengersToUnload);
 }

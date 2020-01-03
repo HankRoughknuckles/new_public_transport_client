@@ -87,7 +87,15 @@ export default class OldTram extends Tram implements ApiOldTram {
     ]
   }
 
-  pullIntoNextStation() {
+  public getPassengersGettingOffAt(station: Station): Passenger[] {
+    return this.passengers.filter(p => p.destination.id === station.id);
+  }
+
+  public removePassengersById(passengerIds: string[]): void {
+    this.passengers = this.passengers.filter(p => !passengerIds.includes(p.id))
+  }
+
+  public pullIntoNextStation() {
     const nextSegment = this.tramLine.getNextSegment(this.currentSegment);
     this.currentSegment = nextSegment!;
     this.setAsLoading();

@@ -30,7 +30,7 @@ describe('the Load action', () => {
     const line = tramLine({segments: [segment12, segment23]});
     let tram: OldTram;
     beforeEach(() => {
-      tram = factories.oldTram({tramLine: line});
+      tram = factories.oldTram({currentSegment: segment12, tramLine: line});
       tram.setAsLoading();
     });
 
@@ -40,22 +40,40 @@ describe('the Load action', () => {
       expect(tram.timeTillActionIsFinished).toEqual(originalTime - 1);
     });
 
-    it('should add passengers to the tram that are going in that direction', () => {
-      const passenger = factories.passenger({destination: station2});
-      tram.currentStation!.addPassenger(passenger);
-      load.perform(tram);
-      expect(tram.passengers).toEqual([passenger]);
+    describe('loading up passengers', () => {
+      it('should add passengers to the tram that are going in that direction', () => {
+        const passenger = factories.passenger({destination: station2});
+        tram.currentStation!.addPassenger(passenger);
+        load.perform(tram);
+        expect(tram.passengers).toEqual([passenger]);
+      });
+
+      it('should remove the passengers loaded from the station', () => {
+        const passenger = factories.passenger({destination: station2});
+        tram.currentStation!.addPassenger(passenger);
+        load.perform(tram);
+        expect(tram.currentStation!.passengers).toEqual([]);
+      });
     });
 
-    fit('should remove the passengers loaded from the station', () => {
-      const passenger = factories.passenger({destination: station2});
-      tram.currentStation!.addPassenger(passenger);
-      load.perform(tram);
-      expect(tram.currentStation!.passengers).toEqual([]);
-    });
+    describe('unloading passengers getting off', () => {
+      fit('should remove the passengers from the tram', () => {
+        const gettingOffPassenger = factories.passenger({id: '1', destination: station1});
+        const stayingOnPassenger = factories.passenger({id: '2', destination: station2});
+        tram.addPassengers([gettingOffPassenger, stayingOnPassenger]);
+        load.perform(tram);
+        expect(tram.passengers.length).toEqual(1); // TODO: remove
+        expect(tram.passengers).toEqual([stayingOnPassenger]);
+      });
 
-    it('should unload the passengers that are getting off at that station', () => {
-
+      it('should put the passenger into the station', () => {
+        const gettingOffPassenger = factories.passenger({destination: station1});
+        const stayingOnPassenger = factories.passenger({destination: station2});
+        tram.addPassengers([gettingOffPassenger, stayingOnPassenger]);
+        load.perform(tram);
+        expect(tram.passengers.length).toEqual(1); // TODO: remove
+        expect(station1.passengers).toEqual([gettingOffPassenger]);
+      });
     });
   });
 });

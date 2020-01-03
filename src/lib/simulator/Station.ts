@@ -36,6 +36,10 @@ export default class Station implements ApiStation {
     this.passengers = [...this.passengers, passenger];
   };
 
+  public addPassengers(passengers: Passenger[]) {
+    this.passengers = [...this.passengers, ...passengers];
+  };
+
   public removePassengersById(passengerIds: string[]) {
     this.passengers = this.passengers.filter(p => !passengerIds.includes(p.id))
   };
