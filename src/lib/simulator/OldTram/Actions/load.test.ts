@@ -58,11 +58,10 @@ describe('the Load action', () => {
 
     describe('unloading passengers getting off', () => {
       fit('should remove the passengers from the tram', () => {
-        const gettingOffPassenger = factories.passenger({id: '1', destination: station1});
-        const stayingOnPassenger = factories.passenger({id: '2', destination: station2});
+        const gettingOffPassenger = factories.passenger({destination: station1});
+        const stayingOnPassenger = factories.passenger({destination: station2});
         tram.addPassengers([gettingOffPassenger, stayingOnPassenger]);
         load.perform(tram);
-        expect(tram.passengers.length).toEqual(1); // TODO: remove
         expect(tram.passengers).toEqual([stayingOnPassenger]);
       });
 
@@ -71,7 +70,6 @@ describe('the Load action', () => {
         const stayingOnPassenger = factories.passenger({destination: station2});
         tram.addPassengers([gettingOffPassenger, stayingOnPassenger]);
         load.perform(tram);
-        expect(tram.passengers.length).toEqual(1); // TODO: remove
         expect(station1.passengers).toEqual([gettingOffPassenger]);
       });
     });

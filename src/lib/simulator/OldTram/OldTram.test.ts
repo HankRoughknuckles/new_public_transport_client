@@ -1,4 +1,3 @@
-import { initializeRegistry } from '../StationRegistry';
 import { line1Tram } from '../../../factories/oldTram';
 import { load, move } from './Actions';
 import { setupStationRegistry } from '../../../testUtils';
