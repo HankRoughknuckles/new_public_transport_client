@@ -57,7 +57,7 @@ describe('the Load action', () => {
     });
 
     describe('unloading passengers getting off', () => {
-      fit('should remove the passengers from the tram', () => {
+      it('should remove the passengers from the tram', () => {
         const gettingOffPassenger = factories.passenger({destination: station1});
         const stayingOnPassenger = factories.passenger({destination: station2});
         tram.addPassengers([gettingOffPassenger, stayingOnPassenger]);
@@ -70,7 +70,22 @@ describe('the Load action', () => {
         const stayingOnPassenger = factories.passenger({destination: station2});
         tram.addPassengers([gettingOffPassenger, stayingOnPassenger]);
         load.perform(tram);
-        expect(station1.passengers).toEqual([gettingOffPassenger]);
+        expect(tram.currentStation!.passengers).toEqual([gettingOffPassenger]);
+      });
+
+      it('should do it if the tram is 2nd in line', () => {
+        const gettingOffPassenger = factories.passenger({destination: station1});
+        const stayingOnPassenger = factories.passenger({destination: station2});
+        const gettingOnPassenger = factories.passenger({destination: station2});
+        tram.currentStation!.addPassenger(gettingOnPassenger);
+        tram.addPassengers([gettingOffPassenger, stayingOnPassenger]);
+        tram.currentStation!.trams = [
+          factories.oldTram(),
+          tram
+        ]
+        load.perform(tram);
+        expect(tram.passengers).toEqual([stayingOnPassenger, gettingOnPassenger]);
+        expect(tram.currentStation!.passengers).toEqual([gettingOffPassenger]);
       });
     });
   });

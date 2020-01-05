@@ -12,6 +12,7 @@ export const OLD_TRAM_CAPACITY = 100;
 export const OLD_TRAM_TURN_AROUND_TIME = 600;
 
 export interface ApiOldTram {
+  id?: string;
   type: 'OLD_TRAM';
   capacity: number;
   tramLine: TramLine;
@@ -34,8 +35,8 @@ export default class OldTram extends Tram implements ApiOldTram {
   timeTillActionIsFinished: number;
   passengers: Passenger[];
 
-  constructor({tramLine, oppositeDirectionTramLine, capacity, currentAction, currentSegment, timeTillActionIsFinished, passengers}: Partial<OldTram>) {
-    super();
+  constructor({id, tramLine, oppositeDirectionTramLine, capacity, currentAction, currentSegment, timeTillActionIsFinished, passengers}: Partial<OldTram>) {
+    super({id});
     this.type = 'OLD_TRAM';
     this.tramLine = tramLine || new TramLine(LINE_1_1);
     this.oppositeDirectionTramLine = oppositeDirectionTramLine || new TramLine(LINE_1_2);
@@ -73,7 +74,7 @@ export default class OldTram extends Tram implements ApiOldTram {
   get isAbleToLoadPassengers() {
     if (this.currentAction !== load) return false;
     if (!this.currentStation) return false;
-    return this.currentStation!.trams[0] === this;
+    return this.currentStation!.trams.slice(0, 2).includes(this);
   }
 
   get remainingStationsTillEnd(): Station[] {

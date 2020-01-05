@@ -6,6 +6,10 @@ import TramLine from './TramLine'
 
 export type TramType = 'OLD_TRAM' | 'NEW_TRAM';
 
+export interface ApiTram {
+  id?: string;
+}
+
 export default abstract class Tram {
   id: string;
   abstract type: TramType;
@@ -16,8 +20,8 @@ export default abstract class Tram {
   abstract timeTillActionIsFinished: number;
   abstract passengers: Passenger[];
 
-  constructor() {
-    this.id = uuid();
+  constructor({id}: ApiTram) {
+    this.id = id || uuid();
   }
 
   /**
