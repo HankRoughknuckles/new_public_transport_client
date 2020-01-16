@@ -13,7 +13,7 @@ export class StationRegistry {
   }
 
   public getStation(id: number) {
-    return getRegistry().stations[id];
+    return this.stations[id];
   };
 }
 

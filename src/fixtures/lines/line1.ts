@@ -1,3 +1,6 @@
+import TramLine from '../../lib/simulator/TramLine';
+import Segment from '../../lib/simulator/Segment';
+
 export const API_DELNICKA = {
   id: 17,
   name: 'Dělnická',
@@ -187,7 +190,7 @@ export const apiAllStations = [
   },
 ]
 
-export const LINE_1_1 = {
+export const LINE_1_1 = new TramLine({
   id: 1,
   name: 'Line 1 - direction 1',
   segments: [
@@ -341,10 +344,10 @@ export const LINE_1_1 = {
       neighborStationId: 26,
       secondsToNeighbor: 120,
     },
-  ],
-};
+  ].map(s => new Segment(s)),
+});
 
-export const LINE_1_2 = {
+export const LINE_1_2 = new TramLine({
   id: 1,
   name: 'Line 1 - direction 1',
   segments: [
@@ -498,5 +501,5 @@ export const LINE_1_2 = {
       neighborStationId: 1,
       secondsToNeighbor: 120,
     },
-  ],
-};
+  ].map(s => new Segment(s)),
+});

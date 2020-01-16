@@ -1,6 +1,5 @@
 import {LINE_1_1, LINE_1_2} from '../../../fixtures/lines'
 import { OldTramAction, initial, load, turnAround } from './Actions';
-import {getRegistry} from '../StationRegistry';
 import Passenger from '../Passenger';
 import Segment from '../Segment';
 import Station from '../Station';
@@ -45,7 +44,7 @@ export default class OldTram extends Tram implements ApiOldTram {
     this.currentSegment = currentSegment || this.tramLine.segments[0];
     this.timeTillActionIsFinished = timeTillActionIsFinished || 0;
     this.passengers = passengers || [];
-    this.destination = this.tramLine.getFinalSegment();
+    this.destination = this.tramLine.finalSegment;
   }
 
   setAsLoading() {
@@ -66,7 +65,7 @@ export default class OldTram extends Tram implements ApiOldTram {
 
   get currentStation(): Station | undefined {
     if (this.currentAction !== load) return undefined;
-    return getRegistry().getStation(this.currentSegment.stationId);
+    return this.currentSegment.station;
   }
 
   /** returns true if the tram is at the front of the queue in the station and
@@ -83,7 +82,7 @@ export default class OldTram extends Tram implements ApiOldTram {
     // TODO: if already left the station, don't count current station - i.e, use
     // index + 1
     return [
-      ...allLineSegments.slice(currentSegmentIndex).map(seg => getRegistry().getStation(seg.stationId)),
+      ...allLineSegments.slice(currentSegmentIndex).map(seg => seg.station),
       this.tramLine.finalStation
     ]
   }

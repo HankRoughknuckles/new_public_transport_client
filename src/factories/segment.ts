@@ -1,25 +1,25 @@
 import deepMerge from 'deepmerge';
 
-import Segment from '../lib/simulator/Segment';
+import Segment, {ApiSegment} from '../lib/simulator/Segment';
 
-const defaultProps: Segment = {
+const defaultProps: ApiSegment = {
   id: 1,
   stationId: 1,
   neighborStationId: 2,
   secondsToNeighbor: 120,
 }
 
-export function segment(props: Partial<Segment> = {}): Segment {
-  return deepMerge(defaultProps, props);
+export function segment(props: Partial<ApiSegment> = {}): Segment {
+  return new Segment(deepMerge(defaultProps, props))
 }
 
 export function blankTrackSegment(): Segment {
-  return {
+  return new Segment({
     id: -1,
     stationId: -1,
     neighborStationId: -1,
     secondsToNeighbor: -1,
-  }
+  })
 }
 
 export default {

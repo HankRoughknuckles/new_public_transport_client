@@ -15,12 +15,12 @@ export default function CreateLine({trackSegment, index}: Props) {
   const [travelTimeInSeconds, setTravelTimeInSeconds] = useState(-1);
 
   useEffect(() => {
-    setTrackSegment(index, {
-      id: -1,
-      stationId: startName,
-      neighborStationId: endName,
-      secondsToNeighbor: travelTimeInSeconds,
-    })
+    // setTrackSegment(index, {
+    //   id: -1,
+    //   stationId: startName,
+    //   neighborStationId: endName,
+    //   secondsToNeighbor: travelTimeInSeconds,
+    // })
   }, [index, startName, endName, travelTimeInSeconds, setTrackSegment])
 
   return (

@@ -1,4 +1,3 @@
-import { getRegistry } from './StationRegistry';
 import Segment from './Segment';
 import Station from './Station';
 
@@ -23,16 +22,13 @@ export default class TramLine implements ITramLine {
     return this.segments.find(s => s.stationId === segment.neighborStationId)
   }
 
-  // TODO: make this a getter
-  public getFinalSegment() {
+  get finalSegment() {
     return this.segments[this.segments.length - 1];
   }
 
-  // TODO: eventually make a Segment class that will take in the api object
-  // literal and give the actual objects
   get stations(): Station[] {
-    const allExceptLastStation = this.segments.map(segment => getRegistry().getStation(segment.stationId));
-    const lastStation = getRegistry().getStation(this.getFinalSegment().neighborStationId);
+    const allExceptLastStation = this.segments.map(segment => segment.station);
+    const lastStation = this.finalSegment.neighbor;
     return [...allExceptLastStation, lastStation];
   }
 

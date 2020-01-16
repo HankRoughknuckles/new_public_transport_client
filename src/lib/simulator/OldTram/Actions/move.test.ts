@@ -1,7 +1,6 @@
 import {LINE_1_1, LINE_1_2} from '../../../../fixtures/lines';
-import { getRegistry } from '../../StationRegistry';
 import {load, move, turnAround} from './';
-import { setupStationRegistry } from '../../../../testUtils';
+import {setupStationRegistry} from '../../../../testUtils';
 import OldTram from '../OldTram';
 import TramLine from '../../TramLine';
 import factories from '../../../../factories';
@@ -45,7 +44,7 @@ describe('The move action', () => {
   it('should move two trams into a station in the order they arrive', () => {
     const tram1 = factories.line1Tram({currentAction: move, timeTillActionIsFinished: 0});
     const tram2 = factories.line1Tram({currentAction: move, timeTillActionIsFinished: 1});
-    const nextStation = getRegistry().getStation(tram1.currentSegment.neighborStationId);
+    const nextStation = tram1.currentSegment.neighbor;
     move.perform(tram1); // move tram 1 in
     move.perform(tram2);
     expect(nextStation.trams).toEqual([tram1]);
@@ -57,7 +56,7 @@ describe('The move action', () => {
     it('should set the line to opposite direction counterpart', () => {
       const line = new TramLine(LINE_1_1);
       const oppositeLine = new TramLine(LINE_1_2);
-      const tram = factories.line1Tram({currentAction: move, currentSegment: line.getFinalSegment()});
+      const tram = factories.line1Tram({currentAction: move, currentSegment: line.finalSegment});
       move.perform(tram);
 
       expect(tram.currentSegment.neighborStationId).toEqual(oppositeLine.segments[0].neighborStationId)
@@ -65,7 +64,7 @@ describe('The move action', () => {
 
     it('should set the action as "turning around"', () => {
       const line = new TramLine(LINE_1_1);
-      const tram = factories.line1Tram({currentAction: move, currentSegment: line.getFinalSegment()});
+      const tram = factories.line1Tram({currentAction: move, currentSegment: line.finalSegment});
       move.perform(tram);
 
       expect(tram.currentAction.type).toEqual(turnAround.type);
