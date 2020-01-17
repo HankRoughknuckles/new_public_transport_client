@@ -1,9 +1,14 @@
 import OldTram from '../OldTram';
+import {move} from './index';
 
 export default {
   type: 'load',
   duration: 10,
   perform: (tram: OldTram) => {
+    if (tram.timeTillActionIsFinished === 0) {
+      tram.currentAction = move;
+      return;
+    }
     if (tram.isAbleToLoadPassengers) {
       tram.timeTillActionIsFinished = tram.timeTillActionIsFinished - 1;
       loadPassengers(tram);

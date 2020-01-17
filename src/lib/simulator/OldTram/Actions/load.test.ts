@@ -1,10 +1,11 @@
-import load from './load';
-import { setupStationRegistry } from '../../../../testUtils';
-import OldTram from '../OldTram';
-import factories from '../../../../factories';
 import {segment} from '../../../../factories/segment';
+import { setupStationRegistry } from '../../../../testUtils';
 import {station} from '../../../../factories/station';
 import {tramLine} from '../../../../factories/tramLine';
+import OldTram from '../OldTram';
+import factories from '../../../../factories';
+import load from './load';
+import move from './move';
 
 describe('the Load action', () => {
   beforeEach(() => setupStationRegistry());
@@ -126,6 +127,13 @@ describe('the Load action', () => {
       tram.currentStation!.addPassenger(gettingOnPassenger); // passenger gets to platform
       load.perform(tram);
       expect(tram.passengers).toEqual([gettingOnPassenger]);
+    });
+
+    it('should set the action as move after loading has finished', () => {
+      tram.timeTillActionIsFinished = 0;
+      load.perform(tram);
+
+      expect(tram.currentAction).toEqual(move);
     });
   });
 });
