@@ -52,6 +52,24 @@ describe('the Load action', () => {
       });
     });
 
+    describe('when the tram has one spot left for a passenger', () => {
+      beforeEach(() => {
+        tram.passengers = Array(tram.capacity - 1).fill(factories.passenger());
+      });
+
+      it('should only load one person from the station', () => {
+        tram.currentStation!.addPassengers([
+          factories.passenger({destination: nextStation}),
+          factories.passenger({destination: nextStation}), // will get left
+          factories.passenger({destination: nextStation}), // will get left
+        ]);
+        load.perform(tram)
+
+        expect(tram.passengers.length).toEqual(tram.capacity);
+        expect(tram.currentStation!.passengers.length).toEqual(2);
+      });
+    });
+
     describe('loading up passengers', () => {
       it('should add passengers to the tram that are going in that direction', () => {
         const passenger = factories.passenger({destination: nextStation});

@@ -88,6 +88,11 @@ export default class OldTram extends Tram implements ApiOldTram {
     ]
   }
 
+  /** the remaining number of passengers that can be loaded into the tram */
+  get remainingSpace(): number {
+    return this.capacity - this.passengers.length
+  }
+
   public getPassengersGettingOffAt(station: Station): Passenger[] {
     return this.passengers.filter(p => p.destination.id === station.id);
   }
