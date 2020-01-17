@@ -7,9 +7,7 @@ import {station} from '../../../../factories/station';
 import {tramLine} from '../../../../factories/tramLine';
 
 describe('the Load action', () => {
-  beforeEach(() => {
-    setupStationRegistry()
-  });
+  beforeEach(() => setupStationRegistry());
 
   describe('when the tram is not at the front of the line', () => {
     it('should not decrement timeTillActionIsFinished', () => {
@@ -36,6 +34,22 @@ describe('the Load action', () => {
       const originalTime = tram.timeTillActionIsFinished;
       load.perform(tram);
       expect(tram.timeTillActionIsFinished).toEqual(originalTime - 1);
+    });
+
+    describe('when the tram is full', () => {
+      beforeEach(() => {
+        tram.passengers = Array(tram.capacity).fill(factories.passenger());
+      });
+
+      it('should not load anyone', () => {
+        const newPassenger = factories.passenger({destination: nextStation});
+        tram.currentStation!.addPassenger(newPassenger);
+        expect(tram.passengers.length).toEqual(100)
+        load.perform(tram);
+
+        expect(tram.currentStation!.passengers).toEqual([newPassenger]);
+        expect(tram.passengers.length).toEqual(100) //should not have changed
+      });
     });
 
     describe('loading up passengers', () => {

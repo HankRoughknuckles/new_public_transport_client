@@ -69,8 +69,9 @@ export default class OldTram extends Tram implements ApiOldTram {
   }
 
   /** returns true if the tram is at the front of the queue in the station and
-   * is currently doing the load action */
+   * is currently doing the load action and isn't full */
   get isAbleToLoadPassengers() {
+    if (this.passengers.length >= this.capacity) return false;
     if (this.currentAction !== load) return false;
     if (!this.currentStation) return false;
     return this.currentStation!.trams.slice(0, 2).includes(this);
