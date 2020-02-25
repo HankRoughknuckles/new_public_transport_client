@@ -1,5 +1,6 @@
 import TramLine from '../../lib/simulator/TramLine';
 import Segment from '../../lib/simulator/Segment';
+import {NO_NEIGHBOR} from '../../lib/simulator/common';
 
 export const API_DELNICKA = {
   id: 17,
@@ -341,8 +342,8 @@ export const LINE_1_1 = new TramLine({
     {
       id: 25,
       stationId: 25,
-      neighborStationId: 26,
-      secondsToNeighbor: 120,
+      neighborStationId: NO_NEIGHBOR,
+      secondsToNeighbor: -1,
     },
   ].map(s => new Segment(s)),
 });
@@ -500,6 +501,12 @@ export const LINE_1_2 = new TramLine({
       stationId: 2,
       neighborStationId: 1,
       secondsToNeighbor: 120,
+    },
+    {
+      id: 52,
+      stationId: 1,
+      neighborStationId: NO_NEIGHBOR,
+      secondsToNeighbor: -1,
     },
   ].map(s => new Segment(s)),
 });
