@@ -350,7 +350,7 @@ export const LINE_1_1 = new TramLine({
 
 export const LINE_1_2 = new TramLine({
   id: 1,
-  name: 'Line 1 - direction 1',
+  name: 'Line 1 - direction 2',
   segments: [
     {
       id: 27,
